@@ -1,0 +1,70 @@
+<!DOCTYPE html> <!--Added the doctype-->
+
+<html lang="en"></html> <!--ERROR 1, html shouldn't be nested in the head-->
+<head>
+    <title>Error-Filled Page</title>
+</head> <!--ERROR 2, added a head end tag-->
+    
+<body>
+    <h1>Welcome to My Error-Filled Page </h1> <!--ERROR 3, added an end tag-->
+    
+    <p>This is a paragraph.</p> <!--ERROR 4, added a starting tag-->
+    
+    <ol>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+        <li>Item 6</li><!--ERROR 5, changed from an end tag to a start tag-->
+        <li>Item 7</li>
+        <li>Item 8</li>
+        <li>Item 9</li>
+        <li>Item 10</li>
+    </ol><!--ERROR 6, changed from ul to ol, this makes an organized list-->
+
+    <p>This is another paragraph.</p> <!--ERROR 7, ended the paragraph-->
+    
+    <img src="Image.jpg"><!--ERROR 8, this image file is a .jpg thus the file needs to be named-->
+
+    <a href="find_errors_2.html" target="_blank">Click me!</a> <!--ERROR 9, an image end tag can't be used with the <a> tag, it is replaced for a </a> tag-->
+
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+        <tr>
+            <td>John</td>
+            <td>25</td><!--ERROR 10, missing an end tag-->
+        </tr>
+        <tr>
+            <td>Jane</td>
+            <td>30</td>
+        </tr>
+    </table> <!--ERROR 11, added an end tag for the table-->
+    <img src="error.jpg" alt="Error Image"><!--ERROR 12+13, when calling on the source it needs to be src= not source=, the file is named .jpg not .jpeg-->
+
+    <p>This is a paragraph with <s>strikethrough text</s>.</p> <!--ERROR 14+15, inserted the start and end parapgraph tags, added the strike trhough element using <s></s>-->
+
+    <p style="background-color: lightgray;">Text</p> <!--ERROR 16, bgcolor can't be used within a paragraph tag-->
+
+
+    <input type="button" value="Click me">
+
+    <!-- This is a comment--> <!--ERROR 17, added an end tag to the comment-->
+
+    <a href="#">Link</a> <!--ERROR 18, added a </a> end tag--> 
+
+    <p><em>Underlined text</em></p> <!--ERROR 19, changed the formatting of the end tags, the <p> tag cannot be nested inside of the <em> tags as it is a block element and can't be implemmented to a linear element -->
+
+
+    <dl>
+        <li>Descriptive Item Title</li>
+        <li>Descriptive Item Text</li>
+    </dl>
+    <h2 style="color:Tomato;">Hello World<h2> <!--ERROR 20, because the line is started as a h2 the end tag needs to follow the same formatting-->
+</body>
+</html>
+<!-- 25 errors on this page-->

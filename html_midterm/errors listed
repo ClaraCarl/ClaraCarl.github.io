@@ -1,0 +1,14 @@
+ERROR 1, html has not been officially declared
+ERROR 2 h1 should not be inside title
+ERROR 3 head never closed
+ERROR 4+5 , html already declared and body never closed
+ERROR 6 not proper nesting
+ERROR 7, strong never closed 
+ERROR 8 need an alt tag to classify photo
+ERROR 9, also needs to be from src not href
+ERROR 10, this is not a heading
+ERROR 11, h2 closed with no opening
+ERROR 12, a heading can not be in a paragraph
+ERROR 13, there doesn't need to be text and it's no longer a heading
+ERROR 14, this is not proper phrasing for a comment
+ERROR 15, html not spelled right 
