@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Fundamental CSS comprehension</title>
+    <link rel="stylesheet" href="/css/businessStyle.css">
+  </head>
+  <body>
+
+  <section class="card">
+    <header>
+      <h2>Clara Carlsson</h2>
+    </header>
+    <article>
+      <img src="chris.jpg" alt="A picture of Clara - a woman with blonde hair, blue eyes, and ">
+      <p>Pleasant St<br>
+         Boulder<br>
+         Colorado<br>
+         US<br>
+         80302<br>
+        <strong>Tel</strong>: 650 305 1938<br>
+        <strong>Mail</strong>: clara.carlsson@colorado.edu</p>
+    </article>
+    <footer>
+      <p>Information Science Student at University of Colorado at Boulder</p>
+    </footer>
+  </section>
+
+  </body>
+</html>
