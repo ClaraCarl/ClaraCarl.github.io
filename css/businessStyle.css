@@ -18,10 +18,10 @@ body {
   /* Rulesets to be matched up with selectors */
   
   .card{
-    width: 35em;
-    height: 22em;
-    margin: 5em auto;
-    background-colour: rgb(151, 183, 160);
+    width: 9em;
+    height: 5em;
+    margin: 10em auto;
+    background-color: rgb(151, 183, 160);
     border: 0.2em solid black;
     border-radius: 1.5em;
   }
@@ -37,6 +37,7 @@ body {
   }
   
   .card article img{
-    max-height: 100%
+    max-width: 6em;
+    max-height: 70%;
     float: right;
   }
