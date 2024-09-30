@@ -16,6 +16,11 @@ html {
   border: 0.2em solid red;
   border-radius: 1.5em;
 }
+/*made the second card a distinct color*/
+.second-card {
+  background-color: rgba(108, 165, 80, 0.804);
+  border-color: rgba(108, 165, 80, 0.804);
+}
 
 /* height and padding of card and content*/
 .card header, .card footer {
