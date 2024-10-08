@@ -1,26 +1,56 @@
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html, body {
+    background-image: url('hockey.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 0;
   }
 
 .hockeyGame {
-    background-image: url('hockey.jpg'); /* Add logo as background */
+    background-image: url('hockey.jpg'); 
     background-size: cover;
     background-position: center;
     height: 100vh;
     width: 100%;
+    position: relative;
 }
 .nhl {
     position: absolute;
-    bottom: 10px; 
-    right: 10px;   
+    top: 400px; 
+    right: 580px;   
+    
+    width: 50px;  
+    height: 20px;  
+  }
+  
+  .nhl img {
+    width: 100%;
+    height: auto; 
+  }
+  .score {
+    position: absolute;
+    top: -50px; 
+    left: 12px;   
     
     width: 150px;  
     height: auto;  
   }
   
-  .nhl img {
+  .score img {
+    width: 100%;
+    height: auto; 
+  }
+
+  .espn {
+    position: absolute;
+    top: 20px; 
+    right: 620px;   
+    
+    width: 80px;  
+    height: auto;  
+  }
+  
+  .espn img {
     width: 100%;
     height: auto; 
   }
