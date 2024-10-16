@@ -1,0 +1,66 @@
+/* styling for any navbar */
+/* ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  } */
+
+
+/* styling for horizontal navbar */
+body{
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    display:flex;
+    padding: 10px; /*this value changes the height of our navbar*/
+    overflow: hidden;
+    background-color: black; /*background color of the navbar*/
+  }
+
+  li {
+    float: right;
+    display: inline; /* this makes our navbar horizontal, without it it will be vertical (block) by default */
+  }
+
+  li a {
+    color: white; /*text color of the navbar links*/
+    font-family: "Protest Strike", sans-serif;
+    text-align: center;
+    padding: 100% 10px;
+    /*^ first number: vertical padding (for horizontal nav we want it to take up the whole height of the parent--ul--so we use 100%)
+        second number: horizontal padding (change this number to change space between links)*/ 
+    text-decoration: none;
+  }
+
+  li a:hover {
+    background-color: grey; /*background color of the navbar when hovering over a link*/
+  }
+
+  li a:active{
+    background-color: white;
+    color: black;
+  }
+
+
+  /* media query */
+  @media screen and (min-width: 480px) {
+    body {
+      background-color: lightgreen;
+    }
+  }
+
+  /* transitions */
+  div {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    transition: width 2s, background-color 1s; /*must set: which property you want to transition and how much*/
+  }
+  
+  div:hover {
+    width: 300px; /*then, using a pseudo class, we can change the property, the transition will smooth the change*/
+    background-color: blue;
+  }
