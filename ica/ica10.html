@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <meta charset="utf-8">
-     <title>Places to eat</title>
+    <meta charset="utf-8">
+    <title>Boulder Food Guide</title>
+    <style>
+        #description {
+            display: none; 
+            color: #6F7C44;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
 <body>
+    <div>
+        <h1 id="my_head">Boulder Food Guide</h1>
+        <p id="paragraph">
+            Welcome to a guide of the best restaurants in Boulder, Colorado. Here you can find a list of the highest-recommended spots perfect for families and students.
+        </p>
+    </div>
 
-<div>
-    <h1>
-        Boulder Food Guide
-    </h1>
-    <p>
-        Welcome to a guide of the best restauraunts in Boulder Colorado. Here you can find a list of the highest reccomended spots perfect for families and students. While reviewing pictures from the location press the name below to be transferred to the restauraunts website and learn more or make a reservation.
-    </p>
-</div>
-<div>
-    <img src="bartaco.png">
-    <p>
-        BarTaco
-    </p>
-</div>
+    <div>
+        <h3 id="bar_taco_header">Bar Taco</h3>
+    </div>
 
+    <div id="restaurant-container">
+        <img id="restaurant-image" src="BarTaco.jpeg" alt="BarTaco" style="cursor: pointer;">
+        <p id="description">BarTaco: A beach-inspired taco and cocktail restauraunt with a relaxed vibe. Cheap food accomdating for different dietary wants and restrictions. Menue ranges from Tacos to Poke bowls.</p>
+    </div>
 
+    <p>Click on the image to learn more or make a reservation.</p>
+
+    <script src="js/ica_10.js"></script> 
 </body>
-<script src="/js/ica_10.js"></script> 
 </html>
