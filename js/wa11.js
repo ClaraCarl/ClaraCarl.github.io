@@ -1,39 +1,54 @@
-const imageNames = ['tallie.png', 'duoPeak.png', 'peakMark.png', 'view.png', 'peakView.png'];
+const thumbBar = document.querySelector('.thumb-bar');
 
-const imageAlts = {
+const filenames = [
+  'hikingUp.JPG',
+  'tallie.png',
+  'duoPeak.png',
+  'peakMark.png',
+  'view.png',
+];
+
+const altTexts = {
+  'hikingUp.JPG': 'Photo of Clara hiking up to the peak',
   'tallie.png': 'Tallie mid hike',
   'duoPeak.png': 'Clara and Tallie at the Peak',
   'peakMark.png': 'Peak Marker',
   'view.png': 'View from part way up the mountain',
-  'peakView.png': 'View from the peak'
 };
 
-const thumbBar = document.querySelector('.thumb-bar');
-const displayedImg = document.querySelector('.displayed-img');
-const overlay = document.querySelector('.overlay');
-const btn = document.querySelector('button');
-
-imageNames.forEach(name => {
+filenames.forEach((imageName) => {
   const newImage = document.createElement('img');
-  newImage.setAttribute('src', `img/${name}`); 
-  newImage.setAttribute('alt', imageAlts[name]);
+  newImage.setAttribute('src', `js/${imageName}`);
+  newImage.setAttribute('alt', altTexts[imageName]);
   thumbBar.appendChild(newImage);
-
-  newImage.addEventListener('click', () => {
-    displayedImg.setAttribute('src', `img/${name}`);
-    displayedImg.setAttribute('alt', imageAlts[name]);
-  });
 });
 
-btn.addEventListener('click', () => {
-  const currentClass = btn.getAttribute('class');
+function handleImageClick({ target }) {
+  displayedImage.setAttribute('src', target.getAttribute('src'));
+  displayedImage.setAttribute('alt', target.getAttribute('alt'));
+}
+
+const displayedImage = document.querySelector('.displayed-img');
+
+filenames.forEach((imageName) => {
+  const newImage = document.createElement('img');
+  newImage.setAttribute('src', `js/${imageName}`);
+  newImage.setAttribute('alt', altTexts[imageName]);
+  thumbBar.appendChild(newImage);
+  img.addEventListener('click', handleImageClick);
+});
+
+function handleButtonClick() {
+  let currentClass = btn.getAttribute('class');
   if (currentClass === 'dark') {
-    btn.setAttribute('class', 'light');
     btn.textContent = 'Lighten';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; 
+    overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+    btn.setAttribute('class', 'light');
   } else {
-    btn.setAttribute('class', 'dark');
     btn.textContent = 'Darken';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0)'; 
+    overlay.style.backgroundColor = 'rgba(0,0,0,0)';
+    btn.setAttribute('class', 'dark');
   }
-});
+}
+
+btn.addEventListener('click', handleButtonClick);
