@@ -1,6 +1,6 @@
 let myData = {};
 function fetchData(){
-    const comicNumber = Math.floor(Math.random() * 3000) + 1;
+    const comicNumber = Math.floor(Math.random() * 3001);
 fetch('https://corsproxy.io/?https://xkcd.com/${comicNumber}/info.0.json')
 .then(res =>{
     if(res.ok){

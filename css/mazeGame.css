@@ -1,0 +1,39 @@
+#container{
+    border: 1px solid black;
+    height: 40vh;
+    width: 60vw;
+    margin:auto;
+    margin-top:20vh;
+    position:relative;
+    overflow: hidden;
+}
+
+#char{
+    background-color: blueviolet;
+    height: 4vw;
+    width: 4vw;
+    position:absolute;
+    bottom:0;
+    z-index: 1;
+}
+
+.obstacle{
+    background-color: red;
+    height:3vw;
+    width: 2vw;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    animation: obstacle 3s linear infinite;
+}
+
+@keyframes obstacle{
+    0%{right: 0%;}
+    100%{right: 100%;}
+}
+
+#score{
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+}
