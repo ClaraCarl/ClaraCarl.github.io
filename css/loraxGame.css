@@ -51,7 +51,7 @@
     width: 13vw;
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: -10vw;
     animation: tree 4s linear infinite;
 }
 
