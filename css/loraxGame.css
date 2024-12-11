@@ -1,0 +1,97 @@
+#FindTheLorax{
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 0px;
+}
+#container{
+    border: 1px solid rgb(181, 224, 239);
+    background-color: rgb(181, 224, 239);
+    height: 70vh;
+    width: 70vw;
+    margin:auto;
+    margin-top:20vh;
+    position:relative;
+    overflow: hidden;
+}
+#score{
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+}
+
+.grass{
+    background-image: url('grass.png');
+    background-size: contain;
+    height: 20%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: -20px;
+}
+
+/*Ted*/     
+#char{
+    background-image: url('ted.png');
+    background-size: cover;
+    background-position: -70% center;
+    height: 10vw;
+    width: 10vw;
+    position:absolute;
+    bottom: 200px;
+    left: 7px;
+    z-index: 1;
+    animation: tree 4s linear infinite;
+}
+
+.tree{
+    background-image: url('pinkTree.gif');
+    background-size: contain;
+    background-position: center;
+    height: 17vw;
+    width: 13vw;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    animation: tree 4s linear infinite;
+}
+
+@keyframes tree{
+    0%{right: -25%;}
+    100%{right: 100%;}
+}
+
+.LoraxTree{
+    background-image: url('loraxTree.png');
+    background-size: contain;
+    background-position:center;
+    height: 29vw;
+    width: 10vw;
+    position:absolute;
+    bottom:0;
+    right: -40vw;
+    z-index: 1;
+    animation: tree 4s linear infinite;
+    animation-delay: 5s;
+}
+@keyframes .Tree{
+    0% { left: 10%; }
+    100% { left: -10vw; } 
+}
+
+.newTree{
+    background-image: url('tree.png');
+    background-size: contain;
+    background-position: center;
+    height: 18vw;
+    width: 11vw;
+    position: absolute;
+    bottom: 0;
+    right: -20vw;
+    animation: tree 4s linear infinite;
+    animation-delay: 2s;
+}
+
+@keyframes .newTree{
+    0%{right: -15%;}
+    100%{right: 100%;}
+}
