@@ -1,9 +1,9 @@
 let char = document.getElementById("char").getBoundingClientRect();
 
-// tree position property
+// tree position 
 let obst = document.querySelector(".tree").getBoundingClientRect();
 
-// container position property
+// container position 
 let container = document.getElementById("container").getBoundingClientRect();
 
 // character properties
@@ -17,7 +17,7 @@ let charProp = {
     maxHang: 4
 };
 
-// score tracking
+// score
 let score = 0;
 let gameStarted = true;
 let oncelerPassed = false;
@@ -30,11 +30,10 @@ setInterval(() => {
     const trees = document.querySelectorAll(".tree");
     char = document.getElementById("char").getBoundingClientRect();
 
-    // Check for collisions with trees
+    // tree contact
     trees.forEach((tree) => {
         const treeRect = tree.getBoundingClientRect();
 
-        // Check if character hits the tree from above or jumps on it
         if (
             char.right >= treeRect.left &&
             char.left <= treeRect.right &&
@@ -47,7 +46,7 @@ setInterval(() => {
         }
     });
 
-    // Check for touching the grass
+    // Grass contact
     if (grassCollisionEnabled) {
         obst = document.querySelector(".grass").getBoundingClientRect();
         if (char.right >= obst.x && char.bottom > obst.y) {
@@ -56,7 +55,7 @@ setInterval(() => {
         }
     }
 
-    // Check for reaching the LoraxTree
+    // endpoint check
     const loraxTree = document.querySelector(".LoraxTree").getBoundingClientRect();
     if (
         char.right >= loraxTree.left &&
@@ -66,12 +65,15 @@ setInterval(() => {
         endLevel();
     }
 
-    // Check if the Onceler has passed the end of the screen
-    let onceler = document.getElementById("onceler");
-    let oncelerRect = onceler.getBoundingClientRect();
-    if (oncelerRect.left >= window.innerWidth) {
-        oncelerPassed = true;
-        alert("You protected the trees! You win!");
+    // onceler
+    const onceler = document.getElementById("onceler");
+    const oncelerRect = onceler.getBoundingClientRect();
+    if (
+        char.right >= oncelerRect.left &&
+        char.left <= oncelerRect.right &&
+        char.bottom >= oncelerRect.top
+    ) {
+        alert("You touched the Onceler! Game Over.");
         resetGame();
     }
 }, 100);
@@ -129,48 +131,12 @@ function endLevel() {
     }, 5000);
 }
 
-// spacebar
+// spacebar for jumping and starting
 document.addEventListener("keydown", (e) => {
     if (e.code == "Space" && gameStarted) {
         jumping();
     }
 });
-
-setInterval(() => {
-    if (!gameStarted) return;
-
-    const charRect = char;
-    const oncelerRect = document.getElementById("onceler").getBoundingClientRect();
-
-    // Check collision with the Onceler
-    if (
-        charRect.right >= oncelerRect.left &&
-        charRect.left <= oncelerRect.right &&
-        charRect.bottom >= oncelerRect.top &&
-        charRect.top <= oncelerRect.bottom
-    ) {
-        alert("You touched the Onceler! Game Over.");
-        resetLevel();
-    }
-
-    // Check for ground collision
-    const ground = document.querySelector(".grass").getBoundingClientRect();
-    if (charRect.bottom >= ground.top) {
-        alert("You hit the ground! Game Over.");
-        resetLevel();
-    }
-
-    // Check for reaching the LoraxTree
-    const loraxTree = document.querySelector(".LoraxTree").getBoundingClientRect();
-    if (
-        charRect.right >= loraxTree.left &&
-        charRect.left <= loraxTree.right &&
-        charRect.bottom >= loraxTree.top
-    ) {
-        alert("Level 2 Complete! Great Job!");
-        endLevel();
-    }
-}, 100);
 
 function resetLevel() {
     score = 0;
@@ -178,12 +144,4 @@ function resetLevel() {
     charProp.jumpHeight = 200;
     charProp.elem.style.bottom = "200px";
     gameStarted = false;
-
-    // Reset Onceler animation
-    const onceler = document.getElementById("onceler");
-    onceler.style.animation = "none";
-    setTimeout(() => {
-        onceler.style.animation = "moveOnceler 5s linear infinite";
-        gameStarted = true;
-    }, 1000);
 }

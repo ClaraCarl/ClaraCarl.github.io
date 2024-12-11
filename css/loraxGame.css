@@ -95,3 +95,21 @@
     0%{right: -15%;}
     100%{right: 100%;}
 }
+
+#onceler {
+    background-image: url('onceler.png');
+    background-size: contain;
+    background-position: center;
+    height: 10vw;
+    width: 6vw;
+    position: absolute;
+    bottom: 0;
+    right: -25vw;
+    animation: moveOncler 4s linear infinite;
+    animation-delay: 4.5s;
+ }
+ 
+ @keyframes moveOnceler {
+    0% { left: 10%; }
+    100% { left: -10vw; } 
+    }
