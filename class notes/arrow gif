@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Arrow</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+        }
+        .arrow {
+            width: 50px;
+            height: 50px;
+            border-left: 5px solid #F5F5F5;
+            border-bottom: 5px solid #F5F5F5;
+            transform: rotate(-45deg);
+            animation: bounce 1s infinite alternate ease-in-out;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0) rotate(-45deg); }
+            100% { transform: translateY(-20px) rotate(-45deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="arrow"></div>
+</body>
+</html>
