@@ -1,0 +1,322 @@
+import React, { useState, useMemo } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, BarChart, Bar, ComposedChart, ReferenceLine } from 'recharts';
+
+const BoulderHousingDashboard = () => {
+  const [activeTab, setActiveTab] = useState('overview');
+  const [selectedYear, setSelectedYear] = useState('all');
+
+  // Employment data from your analysis
+  const employmentData = [
+    { year: 2013, laborForce: 174766, employment: 165314, unemployment: 9452, unemploymentRate: 5.4 },
+    { year: 2014, laborForce: 176123, employment: 168947, unemployment: 7176, unemploymentRate: 4.1 },
+    { year: 2015, laborForce: 176818, employment: 171415, unemployment: 5403, unemploymentRate: 3.1 },
+    { year: 2016, laborForce: 180901, employment: 176286, unemployment: 4615, unemploymentRate: 2.6 },
+    { year: 2017, laborForce: 185056, employment: 180914, unemployment: 4142, unemploymentRate: 2.2 },
+    { year: 2018, laborForce: 191193, employment: 186140, unemployment: 5053, unemploymentRate: 2.6 },
+    { year: 2019, laborForce: 194187, employment: 189792, unemployment: 4395, unemploymentRate: 2.3 },
+    { year: 2020, laborForce: 190895, employment: 179951, unemployment: 10944, unemploymentRate: 5.7 },
+    { year: 2021, laborForce: 197814, employment: 189093, unemployment: 8721, unemploymentRate: 4.4 },
+    { year: 2022, laborForce: 201848, employment: 196759, unemployment: 5089, unemploymentRate: 2.5 }
+  ];
+
+  // Housing price data (simulated from your visuals)
+  const housingData = [
+    { year: 2013, avgPrice: 594439, totalSales: 3250 },
+    { year: 2014, avgPrice: 768991, totalSales: 3890 },
+    { year: 2015, avgPrice: 1119690, totalSales: 4120 },
+    { year: 2016, avgPrice: 899162, totalSales: 3980 },
+    { year: 2017, avgPrice: 1377240, totalSales: 4350 },
+    { year: 2018, avgPrice: 950472, totalSales: 4200 },
+    { year: 2019, avgPrice: 1320012, totalSales: 4680 },
+    { year: 2020, avgPrice: 1335732, totalSales: 5200 },
+    { year: 2021, avgPrice: 1815907, totalSales: 6800 },
+    { year: 2022, avgPrice: 2196149, totalSales: 8200 }
+  ];
+
+  // Combined data for correlation analysis
+  const combinedData = employmentData.map(emp => {
+    const housing = housingData.find(h => h.year === emp.year);
+    return {
+      ...emp,
+      avgPrice: housing?.avgPrice || 0,
+      totalSales: housing?.totalSales || 0,
+      priceAffordabilityRatio: housing ? housing.avgPrice / (emp.laborForce / 1000) : 0
+    };
+  });
+
+  // Price quartile distribution data (simulated from your stacked bar chart)
+  const quartileData = [
+    { unemploymentRate: 2.2, Q1: 1.1e11, Q2: 0.8e11, Q3: 0.9e11, Q4: 9.5e11 },
+    { unemploymentRate: 2.3, Q1: 1.0e11, Q2: 0.7e11, Q3: 0.8e11, Q4: 9.0e11 },
+    { unemploymentRate: 2.5, Q1: 0.3e11, Q2: 2.1e11, Q3: 4.8e11, Q4: 15.1e11 },
+    { unemploymentRate: 2.6, Q1: 1.8e11, Q2: 16.2e11, Q3: 18.5e11, Q4: 14.5e11 },
+    { unemploymentRate: 3.1, Q1: 1.3e11, Q2: 12.1e11, Q3: 13.8e11, Q4: 9.5e11 },
+    { unemploymentRate: 4.1, Q1: 1.0e11, Q2: 9.2e11, Q3: 10.5e11, Q4: 5.8e11 },
+    { unemploymentRate: 4.4, Q1: 0.5e11, Q2: 4.2e11, Q3: 4.8e11, Q4: 16.7e11 },
+    { unemploymentRate: 5.4, Q1: 1.2e11, Q2: 10.8e11, Q3: 12.3e11, Q4: 4.7e11 },
+    { unemploymentRate: 5.7, Q1: 0.8e11, Q2: 7.5e11, Q3: 8.5e11, Q4: 10.9e11 }
+  ];
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
+
+  const formatLarge = (value) => {
+    if (value >= 1e12) return `$${(value / 1e12).toFixed(1)}T`;
+    if (value >= 1e9) return `$${(value / 1e9).toFixed(1)}B`;
+    if (value >= 1e6) return `$${(value / 1e6).toFixed(1)}M`;
+    return formatCurrency(value);
+  };
+
+  const keyMetrics = useMemo(() => {
+    const latest = combinedData[combinedData.length - 1];
+    const earliest = combinedData[0];
+    return {
+      currentUnemployment: latest.unemploymentRate,
+      avgPrice2022: latest.avgPrice,
+      priceGrowth: ((latest.avgPrice - earliest.avgPrice) / earliest.avgPrice * 100).toFixed(1),
+      laborForceGrowth: ((latest.laborForce - earliest.laborForce) / earliest.laborForce * 100).toFixed(1)
+    };
+  }, [combinedData]);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-900 to-purple-900 shadow-2xl">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
+            Boulder County Housing Market Analysis
+          </h1>
+          <p className="text-blue-100 text-lg">Economic Indicators & Real Estate Trends (2013-2022)</p>
+        </div>
+      </div>
+
+      {/* Key Metrics Cards */}
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+            <h3 className="text-blue-100 text-sm font-medium mb-2">Current Unemployment</h3>
+            <p className="text-3xl font-bold text-white">{keyMetrics.currentUnemployment}%</p>
+          </div>
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+            <h3 className="text-blue-100 text-sm font-medium mb-2">Avg Home Price 2022</h3>
+            <p className="text-3xl font-bold text-white">{formatCurrency(keyMetrics.avgPrice2022)}</p>
+          </div>
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+            <h3 className="text-blue-100 text-sm font-medium mb-2">Price Growth</h3>
+            <p className="text-3xl font-bold text-white">+{keyMetrics.priceGrowth}%</p>
+          </div>
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+            <h3 className="text-blue-100 text-sm font-medium mb-2">Labor Force Growth</h3>
+            <p className="text-3xl font-bold text-white">+{keyMetrics.laborForceGrowth}%</p>
+          </div>
+        </div>
+
+        {/* Navigation Tabs */}
+        <div className="bg-slate-800 rounded-xl shadow-lg mb-8">
+          <div className="flex flex-wrap border-b border-slate-700">
+            {[
+              { key: 'overview', label: 'Market Overview' },
+              { key: 'employment', label: 'Employment Trends' },
+              { key: 'housing', label: 'Housing Prices' }
+            ].map((tab) => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveTab(tab.key)}
+                className={`px-6 py-4 font-medium transition-all duration-200 ${
+                  activeTab === tab.key
+                    ? 'text-blue-400 border-b-2 border-blue-400 bg-slate-700'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-700'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Content Panels */}
+        {activeTab === 'overview' && (
+          <div className="space-y-8">
+            <div className="bg-slate-800 rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-6 text-blue-300">Labor Force vs Housing Price Evolution</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <ComposedChart data={combinedData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="year" stroke="#9CA3AF" />
+                  <YAxis yAxisId="left" stroke="#9CA3AF" />
+                  <YAxis yAxisId="right" orientation="right" stroke="#9CA3AF" />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1F2937',
+                      border: '1px solid #374151',
+                      borderRadius: '8px',
+                      color: '#F9FAFB'
+                    }}
+                    formatter={(value, name) => [
+                      name === 'avgPrice' ? formatCurrency(value) : value.toLocaleString(),
+                      name === 'avgPrice' ? 'Avg Home Price' : 'Labor Force'
+                    ]}
+                  />
+                  <Legend />
+                  <Bar yAxisId="left" dataKey="laborForce" fill="#3B82F6" name="Labor Force" opacity={0.7} />
+                  <Line yAxisId="right" type="monotone" dataKey="avgPrice" stroke="#EF4444" strokeWidth={3} name="Avg Home Price" />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'employment' && (
+          <div className="space-y-8">
+            <div className="bg-slate-800 rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-6 text-blue-300">Labor Force Growth</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <LineChart data={employmentData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="year" stroke="#9CA3AF" />
+                  <YAxis stroke="#9CA3AF" />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1F2937',
+                      border: '1px solid #374151',
+                      borderRadius: '8px',
+                      color: '#F9FAFB'
+                    }}
+                    formatter={(value) => [value.toLocaleString(), 'Labor Force']}
+                  />
+                  <Legend />
+                  <Line type="monotone" dataKey="laborForce" stroke="#3B82F6" strokeWidth={3} dot={{ fill: '#3B82F6', r: 6 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-slate-800 rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-6 text-blue-300">Unemployment Rate Trends</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <ComposedChart data={employmentData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="year" stroke="#9CA3AF" />
+                  <YAxis yAxisId="left" stroke="#9CA3AF" />
+                  <YAxis yAxisId="right" orientation="right" stroke="#9CA3AF" domain={[165000, 220000]} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1F2937',
+                      border: '1px solid #374151',
+                      borderRadius: '8px',
+                      color: '#F9FAFB'
+                    }}
+                  />
+                  <Legend />
+                  <Bar yAxisId="left" dataKey="unemploymentRate" fill="#60A5FA" name="Unemployment Rate %" />
+                  <Line yAxisId="right" type="monotone" dataKey="laborForce" stroke="#F59E0B" strokeWidth={2} name="Labor Force" />
+                </ComposedChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'housing' && (
+          <div className="space-y-8">
+            <div className="bg-slate-800 rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-6 text-blue-300">Housing Price Evolution</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <LineChart data={housingData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="year" stroke="#9CA3AF" />
+                  <YAxis stroke="#9CA3AF" />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1F2937',
+                      border: '1px solid #374151',
+                      borderRadius: '8px',
+                      color: '#F9FAFB'
+                    }}
+                    formatter={(value) => [formatCurrency(value), 'Avg Price']}
+                  />
+                  <Legend />
+                  <Line type="monotone" dataKey="avgPrice" stroke="#EF4444" strokeWidth={3} dot={{ fill: '#EF4444', r: 6 }} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-slate-800 rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-6 text-blue-300">Sum ($USD) All Houses Sold Cost Distribution by Employment Rate</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart data={quartileData} margin={{ top: 20, right: 30, left: 40, bottom: 60 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis 
+                    dataKey="unemploymentRate" 
+                    stroke="#9CA3AF" 
+                    label={{ value: 'Unemployment Rate (%)', position: 'insideBottom', offset: -35 }}
+                    tick={{ dy: 10 }}
+                  />
+                  <YAxis 
+                    stroke="#9CA3AF" 
+                    tick={false}
+                    axisLine={true}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#1F2937',
+                      border: '1px solid #374151',
+                      borderRadius: '8px',
+                      color: '#F9FAFB'
+                    }}
+                    formatter={(value) => [formatLarge(value), '']}
+                  />
+                  <Legend />
+                  <Bar dataKey="Q1" stackId="a" fill="#7C3AED" name="Q1 (Lowest)" />
+                  <Bar dataKey="Q2" stackId="a" fill="#2563EB" name="Q2" />
+                  <Bar dataKey="Q3" stackId="a" fill="#059669" name="Q3" />
+                  <Bar dataKey="Q4" stackId="a" fill="#10B981" name="Q4 (Highest)" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            <div className="bg-slate-800 rounded-xl p-6 shadow-lg">
+              <h2 className="text-2xl font-bold mb-6 text-blue-300">Key Insights</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-slate-700 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-green-300 mb-3">Market Decoupling</h3>
+                  <p className="text-slate-300 leading-relaxed">
+                    Housing prices show minimal correlation with local unemployment rates, indicating market forces 
+                    beyond regional economic conditions are driving price growth.
+                  </p>
+                </div>
+                <div className="bg-slate-700 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-yellow-300 mb-3">Exponential Growth</h3>
+                  <p className="text-slate-300 leading-relaxed">
+                    Average home prices increased by {keyMetrics.priceGrowth}% over the analysis period, 
+                    far outpacing labor force growth of {keyMetrics.laborForceGrowth}%.
+                  </p>
+                </div>
+                <div className="bg-slate-700 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-red-300 mb-3">Affordability Crisis</h3>
+                  <p className="text-slate-300 leading-relaxed">
+                    The data reveals limited inventory in lower price quartiles (Q1-Q2), suggesting 
+                    structural challenges in affordable housing availability.
+                  </p>
+                </div>
+                <div className="bg-slate-700 rounded-lg p-6">
+                  <h3 className="text-lg font-semibold text-blue-300 mb-3">Policy Implications</h3>
+                  <p className="text-slate-300 leading-relaxed">
+                    The divergence between housing costs and employment metrics suggests need for 
+                    policy interventions to address workforce housing accessibility.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default BoulderHousingDashboard;
