@@ -5,7 +5,7 @@ const BoulderHousingDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedYear, setSelectedYear] = useState('all');
 
-  // Employment data from your analysis
+  // Employment data
   const employmentData = [
     { year: 2013, laborForce: 174766, employment: 165314, unemployment: 9452, unemploymentRate: 5.4 },
     { year: 2014, laborForce: 176123, employment: 168947, unemployment: 7176, unemploymentRate: 4.1 },
@@ -19,7 +19,7 @@ const BoulderHousingDashboard = () => {
     { year: 2022, laborForce: 201848, employment: 196759, unemployment: 5089, unemploymentRate: 2.5 }
   ];
 
-  // Housing price data (simulated from your visuals)
+  // Housing price data 
   const housingData = [
     { year: 2013, avgPrice: 594439, totalSales: 3250 },
     { year: 2014, avgPrice: 768991, totalSales: 3890 },
@@ -44,7 +44,7 @@ const BoulderHousingDashboard = () => {
     };
   });
 
-  // Price quartile distribution data (simulated from your stacked bar chart)
+  // Price quartile distribution data 
   const quartileData = [
     { unemploymentRate: 2.2, Q1: 1.1e11, Q2: 0.8e11, Q3: 0.9e11, Q4: 9.5e11 },
     { unemploymentRate: 2.3, Q1: 1.0e11, Q2: 0.7e11, Q3: 0.8e11, Q4: 9.0e11 },
